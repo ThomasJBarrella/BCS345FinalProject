@@ -1,4 +1,7 @@
 import javafx.scene.Group;
+
+import java.util.Random;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -7,18 +10,33 @@ import javafx.stage.Stage;
 
 public class Game extends Application{
 	
-	public void start(Stage primaryStage) throws Exception{
-		
+	public void start(Stage primaryStage) throws Exception {
+		CardData d = new CardData();
+		d.getCards();
 		Label lbl = new Label();
-		lbl.setLayoutX(200);lbl.setLayoutY(200);
+		lbl.setLayoutX(100);lbl.setLayoutY(550);
 		lbl.setText("Here it is");
 		Button btn = new Button();
-		btn.setLayoutX(200);btn.setLayoutY(250);
+		btn.setLayoutX(100);btn.setLayoutY(600);
 		btn.setText("Get New Cards");
-		
 		Group grp = new Group(lbl, btn);
+		for(int i=0; i<d.finalImage.length;i++) { //creating the four cards on the screen
+		d.finalImage[i].setX(d.finalImage[i].getX()+195*i+75);//initially the first card will be 75 x units over, but the rest get multiplied to 
+															  //add space
+		grp.getChildren().add(d.finalImage[i]);
+	}
+		btn.setOnMouseClicked(n->{ //when you click the mouse, the current cards are removed from the group and then d.getCards() is called again
+								   //creating 4 new random cards.
+			for(int i=0; i<d.finalImage.length;i++) {
+		grp.getChildren().remove(d.finalImage[i]);
+			}
+			d.getCards();
+			for(int i=0; i<d.finalImage.length;i++) {
+				d.finalImage[i].setX(d.finalImage[i].getX()+195*i+75);	
+				grp.getChildren().add(d.finalImage[i]);
+			}
+		});
 		Scene sn = new Scene(grp,1000,800);
-		
 		primaryStage.setScene(sn);
 		primaryStage.show();
 	}
@@ -38,7 +56,4 @@ public class Game extends Application{
 		 * the option to reshuffle appears and the game continues
 		 */
 	}
-
-	
-	
 }
