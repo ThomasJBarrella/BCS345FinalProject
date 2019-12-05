@@ -1,4 +1,5 @@
 import java.util.Random;
+import org.junit.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -50,6 +51,59 @@ public class CardData {
 	rnd2 = new Random().nextInt(cards.length);
 	rnd2 = cards[rnd2];
 	findCard = findCard + rnd2;					
+	}}
+	
+	/**
+	 * this test case tests the resource stream that will find the Ace of Spades in the zipped file
+	 * this code creates the image and imageview to display the image
+	 */
+	@Test
+	public void ShowCardtest() {
+		String AceofSpades = "00";
+		Image testImage = new Image(getClass().getResourceAsStream("/res/"+AceofSpades+".png"));
+		@SuppressWarnings("unused")
+		ImageView testImageView = new ImageView(testImage);
 	}
-}}
+	/**
+	 * this test case fills the suit and card arrays and builds the test string that would be used to find the card names in the file
+	 * the string is then sent as output, numerous calls of this function should yield different numbers
+	 */
+	@Test
+	public void MakeRandomCardString() {
+		int suitTest[] = new int[3];
+		int cardsTest[] = new int[12];
+		for (int i = 0; i < suitTest.length; i++)
+		{
+			suitTest[i] =  i;
+		}
+		for(int j = 0; j<cardsTest.length;j++)
+		{
+			cardsTest[j] = j;
+		}
+		String findTestCard = "";
+		int rnd = new Random().nextInt(suitTest.length);
+		rnd = suitTest[rnd];
+		findTestCard = findTestCard + rnd;
+		int rnd2 = new Random().nextInt(cardsTest.length);
+		rnd2 = cardsTest[rnd2];
+		findTestCard = findTestCard + rnd2;
+		System.out.println(findTestCard);
+	}
+	
+	/**
+	 * this test case will fill an array at a certain size 
+	 * fill the array with numbers and output each number in the array
+	 * this is used to test the creation of the images, suits and cardTypes
+	 */
+	@Test
+	public void ShowArrayFill() {
+		int size = 5;
+		int[] nums = new int[size];
+		for (int i = 0; i < size;i++) {
+			nums[i] = i;
+			System.out.println(nums[i]);
+		}
+		
+	}
+	}
 
