@@ -4,7 +4,7 @@ import javafx.scene.image.ImageView;
 
 public class CardData {
 	/**
-	 * makes the Image and ImageView public so they can be added to the group in cardMain
+	 * makes the Image finalCard and ImageView finalImage public so they can be added to the group in cardMain
 	 */
 	Image finalCard[] = new Image[4]; 
 	ImageView finalImage[] = new ImageView[4];
