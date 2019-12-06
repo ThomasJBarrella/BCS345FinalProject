@@ -6,73 +6,85 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-// it works but can still need some changes if can make any 
+ 
 
 public class Expression {
 
 	 public static int evaluate(String expression) 
 	    { 
 	       char[] tokens = expression.toCharArray(); 
-
-	         //Stack for numbers: 'values' 
+	       	/**
+	       	 * stack for numbers: "values"
+	       	 * stack for operator: "ops"
+	       	 */ 
 	        Stack<Integer> output = new Stack<Integer>(); 
 
-	        // Stack for Operators: 'ops' 
 	        Stack<Character> ops = new Stack<Character>(); 
 
 
 	        for (int i = 0; i < expression.length(); i++) 
 	        { 
 	        	 StringBuffer sbuf = new StringBuffer(); 
-	        	// Current token is a number, push it to stack for numbers 
+	        	 /**
+	        	  * current token is a number, push it to stack for numbers
+	        	  * there may be more than one digit in number, so the while loop accounts for that scenario
+	        	  */
 	             if  (tokens[i] >= '0' && tokens[i] <= '9') 
-		            {
-		                // There may be more than one digits in number 
+		            { 
 		                while (i < tokens.length && tokens[i] >= '0' && tokens[i] <= '9') 
 		                    sbuf.append(tokens[i++]); 
 		               output.push(Integer.parseInt(sbuf.toString())); 
 		            } 
-	            // Current token is an opening brace you try and push it to ops stack  
+	             /**
+	              * the current token is an opening brace, push it to ops stack
+	              */
 	            else if (tokens[i] == '(') 
 	                ops.push(tokens[i]); 
 
 
-	            // Closing brace encountered, solve entire brace 
+	            /**
+	             * when the closing brace is encountered, solve the entire brace
+	             * use the peek function to see what is in front of the operator stack
+	             */
 	            else if (tokens[i] == ')') 
 	            { 
-	            	// we use the peek to see what is in front of the operator stack
 	                while (ops.peek() != '(') 
 	                  output.push(applyOp(ops.pop(),output.pop(), output.pop())); 
 	                ops.pop(); 
 	            } 
-
-	            // Current token is an operator. 
+	             /**
+	              * current token is an operator
+	              * while the top of "ops" has the same or greater precedence to current token (operator)
+	              *apply operator on top of "ops" to top two elements in values stack
+	              *push current token to "ops"
+	              */ 
 	            else if((tokens[i] == '+' || tokens[i] == '-' || 
 	                     tokens[i] == '*' || tokens[i] == '/') )
 	            { 
-	                // While top of 'ops' has same or greater precedence to current 
-	                // token, which is an operator. Apply operator on top of 'ops' 
-	                // to top two elements in values stack 
+	                
 	                while (!ops.empty() && hasPrecedence(tokens[i], ops.peek())) 
 	                    output.push(applyOp(ops.pop(), output.pop(), output.pop()));
 
-	                // Push current token to 'ops'. 
 	                ops.push(tokens[i]); 
 	            } 
 	        } 
 
-	        // Entire expression has been parsed at this point, apply remaining 
-	        // ops to remaining values 
+	        /**
+	         * expression has been parsed
+	         * apply ops to remaining values
+	         * return the result which is the top of values
+	         */ 
 	        while (!ops.empty()) 
 	            output.push(applyOp(ops.pop(), output.pop(), output.pop())); 
 
-	        // Top of 'values' contains result, return it 
 	        return output.pop(); 
 	    } 
-
-	    // Returns true if 'op2' has higher or same precedence as 'op1', 
-	    // otherwise returns false. 
+	 	/**
+	 	 * @param op1
+	 	 * @param op2
+	 	 * returns true if "op2" has higher or same precedence as "op1"
+	 	 * otherwise it returns false
+	 	 */ 
 	    public static boolean hasPrecedence(char op1, char op2) 
 	    { 
 
@@ -85,12 +97,18 @@ public class Expression {
 
 	    } 
 
-
-	    // A utility method to apply an operator 'op' on operands 'a'  
-	    // and 'b'. Return the result. 
+	    /**
+	     * @param op operator
+	     * @param b operand
+	     * @param a operand
+	     * @return result
+	     */
 	    public static int applyOp(char op, int b, int a) 
 	    { 
-	    	// I changed this from a switch statement to an if
+	    	/**
+	    	 * if statement to delineate the operation
+	    	 * cannot divide by zero clause implemented
+	    	 */
 	    	if(op == '+') return a +b;
 	    	else if(op == '-') return a - b;
 	    	else if(op == '*') return a * b;
@@ -107,6 +125,10 @@ public class Expression {
 	    
 	    public void equation() {
 	    	int total = 0;
+	    	
+	    	//evaluate(expression);
+	    	//total = output.pop;
+	    	
 	    	/**
 			 * if the total of the given equation equals 24, the player has won the game
 			 * if the player wins, shows a popup window that congratulates the player
