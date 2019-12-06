@@ -1,7 +1,14 @@
 import java.util.Random;
 import org.junit.*;
+
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class CardData {
 	/**
@@ -53,6 +60,42 @@ public class CardData {
 	findCard = findCard + rnd2;					
 	}}
 	
+public void equation() {
+		int total = 0;
+		/**
+		 * if the total of the given equation equals 24, the player has won the game
+		 * if the player wins, shows a popup window that congratulates the player
+		 */
+		if (total == 24) {
+			/**
+			 * creates a new stage, titled "You Won"
+			 */
+			Stage winnerPopup = new Stage();
+			
+			winnerPopup.setTitle("You Won!");
+			/**
+			 * creates a label with a message telling the player they won,
+			 * creates a button that when pressed closes the popup window
+			 */
+			Label congratText = new Label("Congratulations, you won the game!");
+			Button winClose = new Button("Close this Window");
+			winClose.setOnAction(e->winnerPopup.close());
+			
+			/**
+			 * add the label an button to the scene
+			 * positions the popup window in the center of the screen
+			 * when the window is opened, it will be displayed until the player takes action to close it
+			 */
+			VBox winLayout = new VBox(10);
+			winLayout.getChildren().addAll(congratText, winClose);
+			winLayout.setAlignment(Pos.CENTER);
+			
+			Scene win = new Scene(winLayout, 400, 300);
+			winnerPopup.setScene(win);
+			winnerPopup.showAndWait();
+		}
+	}
+	
 	/**
 	 * this test case tests the resource stream that will find the Ace of Spades in the zipped file
 	 * this code creates the image and imageview to display the image
@@ -64,6 +107,8 @@ public class CardData {
 		@SuppressWarnings("unused")
 		ImageView testImageView = new ImageView(testImage);
 	}
+	
+	
 	/**
 	 * this test case fills the suit and card arrays and builds the test string that would be used to find the card names in the file
 	 * the string is then sent as output, numerous calls of this function should yield different numbers
