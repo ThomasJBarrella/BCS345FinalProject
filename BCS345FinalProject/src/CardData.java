@@ -16,6 +16,7 @@ public class CardData {
 	 */
 	Image finalCard[] = new Image[4]; 
 	ImageView finalImage[] = new ImageView[4];
+	int validNum[] = new int[4];
 	public void getCards() {	
 	int suit[] = new int[3];
 	int cards[] = new int[12];
@@ -50,6 +51,53 @@ public class CardData {
 	 */
 	for(int i = 0; i<finalCard.length; i++) { 
 	finalCard[i] = new Image(getClass().getResourceAsStream("/res/"+findCard+".png")); 
+	/**
+	 * The next if statement block adds the value to the card
+	 */
+	if(findCard.length()==2) {
+	if(findCard.endsWith("0")) {
+		validNum[i]=1;
+	}
+	else if(findCard.endsWith("1")) {
+		validNum[i]=2;
+	}
+	else if(findCard.endsWith("2")) {
+		validNum[i]=3;
+	}
+	else if(findCard.endsWith("3")) {
+		validNum[i]=4;
+	}
+	else if(findCard.endsWith("4")) {
+		validNum[i]=5;
+	}
+	else if(findCard.endsWith("5")) {
+		validNum[i]=6;
+	}
+	else if(findCard.endsWith("6")) {
+		validNum[i]=7;
+	}
+	else if(findCard.endsWith("7")) {
+		validNum[i]=8;
+	}
+	else if(findCard.endsWith("8")) {
+		validNum[i]=9;
+	}
+	else if(findCard.endsWith("9")) {
+		validNum[i]=10;
+	}
+	}
+	else {
+		if(findCard.endsWith("0")) {
+		validNum[i]=11;//010,110,210,310
+		} 
+		else if(findCard.endsWith("1")) {
+			validNum[i]=12;
+		}
+		else {
+			validNum[i]=13;
+		}
+	}
+		
 	finalImage[i] = new ImageView(finalCard[i]); 
 	finalImage[i].setY(200); 
 	findCard = "";
@@ -115,4 +163,5 @@ public class CardData {
 		
 	}
 	}
+
 

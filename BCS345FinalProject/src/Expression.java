@@ -30,7 +30,7 @@ public class Expression {
 	        	  * there may be more than one digit in number, so the while loop accounts for that scenario
 	        	  */
 	             if  (tokens[i] >= '0' && tokens[i] <= '9') 
-		            { 
+		            {
 		                while (i < tokens.length && tokens[i] >= '0' && tokens[i] <= '9') 
 		                    sbuf.append(tokens[i++]); 
 		               output.push(Integer.parseInt(sbuf.toString())); 

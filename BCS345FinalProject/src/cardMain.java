@@ -14,7 +14,6 @@ import org.junit.*;
 
 @SuppressWarnings("unused")
 public class cardMain extends Application {
-
 	public static void main(String[] args) {
 		/**
 		 * @param args Runs the program
@@ -72,6 +71,37 @@ public class cardMain extends Application {
         Group grp = new Group(pane);
         
         /**
+         * When the verify button is pressed, it will evaluate what is in the text field
+         * If the evaluation returns 24, they did it.
+         * Either way, it will open up a new window that will tell them if they won or lost
+         * if they lost, they will get the value that expression evaluate returned
+         */
+        btnVerify.setOnMouseClicked(p->{
+    		if(Expression.evaluate(txt2.getText())==24) {
+    			Stage secStage = new Stage();
+    			Label lbl2 = new Label("Hurray!");
+    			lbl2.setLayoutX(100);
+    			lbl2.setLayoutY(100);
+    			Group grp2 = new Group(lbl2);
+    			Scene sn2 = new Scene(grp2,250,250);
+    			secStage.setScene(sn2);
+    			secStage.setTitle("You did it!");
+    			secStage.show();
+    		}
+    		else {
+    			Stage secStage = new Stage();
+    			Label lbl2 = new Label("Failure, you ended up with: "+Expression.evaluate(txt2.getText()));
+    			lbl2.setLayoutX(15);
+    			lbl2.setLayoutY(15);
+    			Group grp2 = new Group(lbl2);
+    			Scene sn2 = new Scene(grp2,250,250);
+    			secStage.setScene(sn2);
+    			secStage.setTitle("Wrong!");
+    			secStage.show();
+    		}
+    		});
+        
+        /**
          * this creates the four cards to be shown on screen
          * initially the first card will be 75 x units over, but the rest get multiplied to add space
          * the cards are then added to CardData d created earlier
@@ -102,5 +132,7 @@ public class cardMain extends Application {
 		Scene sn = new Scene(grp);
 		primaryStage.setScene(sn);
 		primaryStage.show();
-	} }
+	} 
+}
+
 
