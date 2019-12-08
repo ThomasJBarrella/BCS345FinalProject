@@ -21,6 +21,51 @@ public class cardMain extends Application {
 		launch(args);
 	}
 	
+	/*boolean isValid(CardData d, TextField txt2) {
+        String txt = txt2.toString();
+        char[] tokens = txt.toCharArray();
+         for (int i = 0; i < txt.length(); i++)
+            {
+            StringBuffer sbuf = new StringBuffer();
+            if  (tokens[i] >= '0' && tokens[i]+tokens[i+1] <= '9')
+            {
+              while (i < tokens.length && tokens[i] >= '0' && tokens[i] <= '9')
+              sbuf.append(tokens[i]);
+            }
+            int validNumTest = Integer.parseInt(sbuf.toString());
+            for(int k=0;k<4;k++) {
+            if(validNumTest!=d.validNum[i]) {
+            if(k==3) { return false;}
+            }
+            }
+    }
+        return true;
+}*/
+	
+	boolean isValid(CardData d, TextField txt2) {
+        String txt = txt2.toString();
+        String[] a = new String[4];
+        int size = 0;
+        int numAmount=0;
+        char[] tokens = txt.toCharArray();
+        for(int i = 0; i<=tokens.length;i++) {
+        if(tokens[i] >= '0' && tokens[i] <= '9') {
+            a[size]+=tokens[i];
+            numAmount=0;
+        }
+        else if (numAmount==0){
+            size++;
+            numAmount++;
+        }
+    }
+        for(int i = 0; i<=3; i++) {
+            if(!(Integer.parseInt(a[i])==(d.validNum[i]))){
+                return false;
+            }
+        }
+        return true;
+}
+	
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -77,29 +122,42 @@ public class cardMain extends Application {
          * if they lost, they will get the value that expression evaluate returned
          */
         btnVerify.setOnMouseClicked(p->{
-    		if(Expression.evaluate(txt2.getText())==24) {
-    			Stage secStage = new Stage();
-    			Label lbl2 = new Label("Hurray!");
-    			lbl2.setLayoutX(100);
-    			lbl2.setLayoutY(100);
-    			Group grp2 = new Group(lbl2);
-    			Scene sn2 = new Scene(grp2,250,250);
-    			secStage.setScene(sn2);
-    			secStage.setTitle("You did it!");
-    			secStage.show();
-    		}
-    		else {
-    			Stage secStage = new Stage();
-    			Label lbl2 = new Label("Failure, you ended up with: "+Expression.evaluate(txt2.getText()));
-    			lbl2.setLayoutX(15);
-    			lbl2.setLayoutY(15);
-    			Group grp2 = new Group(lbl2);
-    			Scene sn2 = new Scene(grp2,250,250);
-    			secStage.setScene(sn2);
-    			secStage.setTitle("Wrong!");
-    			secStage.show();
-    		}
-    		});
+        	if (isValid(d, txt2) == true)
+        	{
+        		if(Expression.evaluate(txt2.getText())==24) {
+        			Stage secStage = new Stage();
+        			Label lbl2 = new Label("Hurray!");
+        			lbl2.setLayoutX(100);
+        			lbl2.setLayoutY(100);
+        			Group grp2 = new Group(lbl2);
+        			Scene sn2 = new Scene(grp2,250,250);
+        			secStage.setScene(sn2);
+        			secStage.setTitle("You did it!");
+        			secStage.show();
+        		}
+        		else {
+        			Stage secStage = new Stage();
+        			Label lbl2 = new Label("Failure, you ended up with: "+Expression.evaluate(txt2.getText()));
+        			lbl2.setLayoutX(15);
+        			lbl2.setLayoutY(15);
+        			Group grp2 = new Group(lbl2);
+        			Scene sn2 = new Scene(grp2,250,250);
+        			secStage.setScene(sn2);
+        			secStage.setTitle("Wrong!");
+        			secStage.show();
+        		}
+    			}
+        	else{
+        		Stage secStage = new Stage();
+        		Label lbl2 = new Label("Failure: Numbers aren't valid, please try again");
+        		lbl2.setLayoutX(15);
+        		lbl2.setLayoutY(15);
+        		Group grp2 = new Group(lbl2);
+        		Scene sn2 = new Scene(grp2,250,250);
+        		secStage.setScene(sn2);
+        		secStage.setTitle("Error");
+        		secStage.show();
+        	}});
         
         /**
          * this creates the four cards to be shown on screen
