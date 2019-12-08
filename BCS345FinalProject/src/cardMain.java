@@ -21,27 +21,6 @@ public class cardMain extends Application {
 		launch(args);
 	}
 	
-	/*boolean isValid(CardData d, TextField txt2) {
-        String txt = txt2.toString();
-        char[] tokens = txt.toCharArray();
-         for (int i = 0; i < txt.length(); i++)
-            {
-            StringBuffer sbuf = new StringBuffer();
-            if  (tokens[i] >= '0' && tokens[i]+tokens[i+1] <= '9')
-            {
-              while (i < tokens.length && tokens[i] >= '0' && tokens[i] <= '9')
-              sbuf.append(tokens[i]);
-            }
-            int validNumTest = Integer.parseInt(sbuf.toString());
-            for(int k=0;k<4;k++) {
-            if(validNumTest!=d.validNum[i]) {
-            if(k==3) { return false;}
-            }
-            }
-    }
-        return true;
-}*/
-	
 	boolean isValid(CardData d, TextField txt2) {
         String txt = txt2.toString();
         String[] a = new String[4];
