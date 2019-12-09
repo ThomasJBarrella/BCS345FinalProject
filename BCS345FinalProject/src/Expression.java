@@ -163,6 +163,3 @@ public class Expression {
 			}
 	    }
 	    } 
-
-       // put this in to check if it work 
-	    // we would just need to get this on the verify button action
